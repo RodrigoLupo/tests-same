@@ -2,24 +2,23 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class Resultado extends Model {
+  class Autorizacion extends Model {
     static associate(models) {
-      Resultado.belongsTo(models.Estudiante, { foreignKey: 'estudianteId' });
-      Resultado.belongsTo(models.Cuestionario, { foreignKey: 'cuestionarioId' });
+      Autorizacion.belongsTo(models.Usuario, { foreignKey: 'usuarioId' });
     }
   }
 
-  Resultado.init({
-    estudianteId: DataTypes.INTEGER,
-    cuestionarioId: DataTypes.INTEGER,
-    puntajeTotal: DataTypes.INTEGER,
-    fecha: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
+  Autorizacion.init({
+    usuarioId: DataTypes.INTEGER,
+    tipoAcceso: DataTypes.STRING,
+    aprobadoPor: DataTypes.INTEGER,
+    fechaAutorizacion: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
   }, {
     sequelize,
-    modelName: 'Resultado',
-    tableName: 'resultados',
+    modelName: 'Autorizacion',
+    tableName: 'autorizaciones',
     timestamps: false
   });
 
-  return Resultado;
+  return Autorizacion;
 };
